@@ -67,7 +67,11 @@ const renderGraph = (graph: GraphType) => {
 						{row.map((item) => {
 							return (
 								<div className='graph-unit' key={uuidv4()}>
-									<div className={item.type}></div>
+									<div className={item.type}>
+										{item.type === GraphUnitTypes.NODE || item.type === GraphUnitTypes.VISITEDNODE
+											? item.cords[0] + " " + item.cords[1]
+											: null}
+									</div>
 								</div>
 							);
 						})}
@@ -93,13 +97,23 @@ const Graph = () => {
 	// const Graph = useRef(generateGraph([2, 0], [24, 24], 49, 49));
 	// const [renderBool, rerender] = useState(true);
 
-	const [Graph, SetGraph] = useState(generateGraph([2, 0], [24, 24], 25, 25));
+	const [Graph, SetGraph] = useState(generateGraph([16, 14], [24, 24], 25, 25));
 	return (
 		<div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className='graph_meta_container'>
 			<div style={{ display: "flex" }} className='graph_container'>
 				{renderGraph(Graph)}
 			</div>
 			<button onClick={() => depthFirstSearch(Graph, SetGraph)}>Click</button>
+			<button
+				onClick={() => {
+					SetGraph((prev) => {
+						prev[10][6].type = GraphUnitTypes.VISITEDNODE;
+						return [...prev];
+					});
+				}}
+			>
+				Make Node Visited
+			</button>
 		</div>
 	);
 };
