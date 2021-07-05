@@ -1,21 +1,19 @@
-
-
-export type NodeCords = [ row: number, col: number]
-
+export type NodeCords = [row: number, col: number];
 
 export enum GraphUnitTypes {
-    START = "start-node",
-    FINISH = "finish-node", 
-    NODE = "normal-node", 
-    LEFTRIGHTEDGE = "left-right-edge", 
-    UPDOWNEDGE = "up-down-edge",
-    EMPTYSPACE = "empty-space",
-    VISITEDNODE = "visited-node"
+	START = "start-node",
+	FINISH = "finish-node",
+	NODE = "normal-node",
+	LEFTRIGHTEDGE = "left-right-edge",
+	UPDOWNEDGE = "up-down-edge",
+	EMPTYSPACE = "empty-space",
+	VISITEDNODE = "visited-node",
 }
 
 export type GraphUnit = {
-    type: GraphUnitTypes;
-    visited: boolean;
-}
+	type: GraphUnitTypes;
+	visited: boolean;
+	cords: NodeCords;
+};
 
-export type GraphType = GraphUnit[][]
+export type GraphType = GraphUnit[][];
