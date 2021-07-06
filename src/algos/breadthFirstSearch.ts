@@ -3,30 +3,45 @@ import { GraphType, GraphUnitTypes, NodeCords, GraphUnit } from "../types";
 export const depthFirstSearch = (Graph: GraphType, SetGraph: React.Dispatch<React.SetStateAction<GraphType>>) => {
 	const StartNode = FindNodeType(Graph, GraphUnitTypes.START);
 	const FinishNode = FindNodeType(Graph, GraphUnitTypes.FINISH);
+	console.log(FinishNode);
 	const GraphWidth = Graph.length;
 	const GraphHeight = Graph[0].length;
 
 	let queue: NodeCords[] = [];
 	queue.push(StartNode.cords);
+	let timer = 0;
 
 	do {
+		//Grabs first node in the list
 		const currentNode = queue.shift();
-		console.log("this is current node: " + currentNode);
+		//console.log("this is current node: " + currentNode);
+
 		if (!currentNode) {
 			console.log("there was nothing let in the queue");
 			break;
 		}
+		//Gets neighbors and sets all visited to true for them to avoid putting them in the queue twice
 		const AllNeighbors = FindAdjancentNodes(currentNode, Graph, GraphHeight, GraphWidth);
 		AllNeighbors.forEach((item) => {
 			queue.push(item);
 			const [X, Y] = item;
-			Graph[X][Y].type = GraphUnitTypes.VISITEDNODE;
+			Graph[X][Y].visited = true;
 		});
 
-		console.log("After adding neighbors " + queue.map((item) => "[" + item[0] + "," + item[1] + "]"));
-		SetGraph([...Graph]);
-	} while (Graph[FinishNode.cords[0]][FinishNode.cords[1]].type !== GraphUnitTypes.VISITEDNODE);
+		//Changing the actual state of the nodes
+		setTimeout(function () {
+			console.log("Timeout");
+			SetGraph((prevGraph) => {
+				const dup = [...prevGraph];
+				const [X, Y] = currentNode;
+				dup[X][Y].type = GraphUnitTypes.VISITEDNODE;
+				return dup;
+			});
+		}, timer * 10);
+		timer = timer + 1;
+	} while (Graph[FinishNode.cords[0]][FinishNode.cords[1]].visited !== true);
 
+	console.log(FinishNode);
 	// for (let i = 0; i < 5; i++) {
 	// 	const Neighbors = FindAdjancentNodes(currentNode, Graph, GraphHeight, GraphWidth);
 	// 	queue = [...queue, ...Neighbors];
@@ -103,19 +118,16 @@ const FindAdjancentNodes = (Node: NodeCords, Graph: GraphType, Height: number, W
 
 	const AdjancentNodes: NodeCords[] = [];
 
-	if (TopNodeCords[1] >= 0 && Graph[TopNodeCords[0]][TopNodeCords[1]].type !== GraphUnitTypes.VISITEDNODE) {
+	if (TopNodeCords[1] >= 0 && Graph[TopNodeCords[0]][TopNodeCords[1]].visited === false) {
 		AdjancentNodes.push(TopNodeCords);
 	}
-	if (
-		BottomNodeCords[1] <= Height &&
-		Graph[BottomNodeCords[0]][BottomNodeCords[1]].type !== GraphUnitTypes.VISITEDNODE
-	) {
+	if (BottomNodeCords[1] <= Height && Graph[BottomNodeCords[0]][BottomNodeCords[1]].visited === false) {
 		AdjancentNodes.push(BottomNodeCords);
 	}
-	if (LeftNodeCords[0] >= 0 && Graph[LeftNodeCords[0]][LeftNodeCords[1]].type !== GraphUnitTypes.VISITEDNODE) {
+	if (LeftNodeCords[0] >= 0 && Graph[LeftNodeCords[0]][LeftNodeCords[1]].visited === false) {
 		AdjancentNodes.push(LeftNodeCords);
 	}
-	if (RightNodeCords[0] <= Width && Graph[RightNodeCords[0]][RightNodeCords[1]].type !== GraphUnitTypes.VISITEDNODE) {
+	if (RightNodeCords[0] <= Width && Graph[RightNodeCords[0]][RightNodeCords[1]].visited === false) {
 		AdjancentNodes.push(RightNodeCords);
 	}
 	return AdjancentNodes;
