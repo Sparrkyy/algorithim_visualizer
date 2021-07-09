@@ -37,7 +37,7 @@ export const depthFirstSearch = (Graph: GraphType, SetGraph: React.Dispatch<Reac
 				dup[X][Y].type = GraphUnitTypes.VISITEDNODE;
 				return dup;
 			});
-		}, timer * 10);
+		}, timer * 40);
 		timer = timer + 1;
 	} while (Graph[FinishNode.cords[0]][FinishNode.cords[1]].visited !== true);
 

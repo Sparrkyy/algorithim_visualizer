@@ -97,7 +97,7 @@ const Graph = () => {
 	// const Graph = useRef(generateGraph([2, 0], [24, 24], 49, 49));
 	// const [renderBool, rerender] = useState(true);
 
-	const [Graph, SetGraph] = useState(generateGraph([16, 14], [24, 24], 25, 25));
+	const [Graph, SetGraph] = useState(generateGraph([0, 6], [12, 20], 17, 21));
 	return (
 		<div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className='graph_meta_container'>
 			<div style={{ display: "flex" }} className='graph_container'>
@@ -106,13 +106,10 @@ const Graph = () => {
 			<button onClick={() => depthFirstSearch(Graph, SetGraph)}>Click</button>
 			<button
 				onClick={() => {
-					SetGraph((prev) => {
-						prev[10][6].type = GraphUnitTypes.VISITEDNODE;
-						return [...prev];
-					});
+					SetGraph(generateGraph([0, 6], [12, 20], 17, 21));
 				}}
 			>
-				Make Node Visited
+				Reset
 			</button>
 		</div>
 	);
