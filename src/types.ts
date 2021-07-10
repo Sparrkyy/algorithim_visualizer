@@ -4,16 +4,20 @@ export enum GraphUnitTypes {
 	START = "start-node",
 	FINISH = "finish-node",
 	NODE = "normal-node",
-	LEFTRIGHTEDGE = "left-right-edge",
-	UPDOWNEDGE = "up-down-edge",
-	EMPTYSPACE = "empty-space",
-	VISITEDNODE = "visited-node",
+	NODE_IN_QUEUE = "node-in-queue",
+	LEFT_RIGHT_EDGE = "left-right-edge",
+	UP_DOWN_EDGE = "up-down-edge",
+	EMPTY_SPACE = "empty-space",
+	VISITED_NODE = "visited-node",
+	IN_SHORTEST_PATH_NODE = "shortest-path-node",
 }
 
 export type GraphUnit = {
 	type: GraphUnitTypes;
 	visited: boolean;
+	queued: boolean;
 	cords: NodeCords;
+	previous?: NodeCords;
 };
 
 export type GraphType = GraphUnit[][];
