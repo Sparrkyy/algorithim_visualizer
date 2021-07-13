@@ -1,4 +1,4 @@
-import { GraphType, GraphUnit, GraphUnitTypes, NodeCords } from "../types";
+import { GraphType, GraphUnit, GraphUnitTypes } from "../types";
 import { FindNodeType } from "../functions/GraphFunctions";
 import { FC, useState } from "react";
 

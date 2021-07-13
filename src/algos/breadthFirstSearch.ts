@@ -1,14 +1,9 @@
-import { GraphType, GraphUnitTypes, NodeCords, GraphUnit } from "../types";
-import {
-	ChangeGraphUnitType,
-	TimeoutChangeGraphUnitType,
-	FindNodeType,
-	findAdjancentNodes,
-} from "../functions/GraphFunctions";
+import { GraphType, GraphUnitTypes, NodeCords } from "../types";
+import { TimeoutChangeGraphUnitType, FindNodeType, findAdjancentNodes } from "../functions/GraphFunctions";
 
 const TIMER_BETWEEN_RENDERS = 20;
 
-export const depthFirstSearch = (Graph: GraphType, SetGraph: React.Dispatch<React.SetStateAction<GraphType>>) => {
+export const breadthFirstSearch = (Graph: GraphType, SetGraph: React.Dispatch<React.SetStateAction<GraphType>>) => {
 	const StartNode = FindNodeType(Graph, GraphUnitTypes.START);
 	const FinishNode = FindNodeType(Graph, GraphUnitTypes.FINISH);
 	//console.log(FinishNode);
@@ -52,14 +47,14 @@ export const depthFirstSearch = (Graph: GraphType, SetGraph: React.Dispatch<Reac
 			const [Xcord, Ycord] = item;
 			Graph[Xcord][Ycord].queued = true;
 			Graph[Xcord][Ycord].previous = currentNode;
-			timer = TimeoutChangeGraphUnitType(
-				Xcord,
-				Ycord,
-				SetGraph,
-				GraphUnitTypes.NODE_IN_QUEUE,
-				TIMER_BETWEEN_RENDERS,
-				timer
-			);
+			// timer = TimeoutChangeGraphUnitType(
+			// 	Xcord,
+			// 	Ycord,
+			// 	SetGraph,
+			// 	GraphUnitTypes.NODE_IN_QUEUE,
+			// 	TIMER_BETWEEN_RENDERS,
+			// 	timer
+			// );
 		});
 	}
 
@@ -92,6 +87,7 @@ export const depthFirstSearch = (Graph: GraphType, SetGraph: React.Dispatch<Reac
 		);
 	});
 
+	//recoloring the START node
 	timer = TimeoutChangeGraphUnitType(
 		StartNode.cords[0],
 		StartNode.cords[1],
@@ -100,6 +96,7 @@ export const depthFirstSearch = (Graph: GraphType, SetGraph: React.Dispatch<Reac
 		TIMER_BETWEEN_RENDERS,
 		timer
 	);
+	//recoloring the FINISH node
 	timer = TimeoutChangeGraphUnitType(
 		FinishNode.cords[0],
 		FinishNode.cords[1],

@@ -24,6 +24,10 @@ export const findAdjancentNodes = (Node: NodeCords, Graph: GraphType, Height: nu
 	if (TopNodeCords[1] >= 0 && hasNodeNotBeenQueued(Graph, TopNodeCords)) {
 		AdjancentNodes.push(TopNodeCords);
 	}
+	//Graph[RightNodeCords[0]][RightNodeCords[1]].visited === false
+	if (RightNodeCords[0] <= Width && hasNodeNotBeenQueued(Graph, RightNodeCords)) {
+		AdjancentNodes.push(RightNodeCords);
+	}
 	//Graph[BottomNodeCords[0]][BottomNodeCords[1]].visited === false
 	if (BottomNodeCords[1] <= Height && hasNodeNotBeenQueued(Graph, BottomNodeCords)) {
 		AdjancentNodes.push(BottomNodeCords);
@@ -31,10 +35,6 @@ export const findAdjancentNodes = (Node: NodeCords, Graph: GraphType, Height: nu
 	//Graph[LeftNodeCords[0]][LeftNodeCords[1]].visited === false
 	if (LeftNodeCords[0] >= 0 && hasNodeNotBeenQueued(Graph, LeftNodeCords)) {
 		AdjancentNodes.push(LeftNodeCords);
-	}
-	//Graph[RightNodeCords[0]][RightNodeCords[1]].visited === false
-	if (RightNodeCords[0] <= Width && hasNodeNotBeenQueued(Graph, RightNodeCords)) {
-		AdjancentNodes.push(RightNodeCords);
 	}
 	return AdjancentNodes;
 };

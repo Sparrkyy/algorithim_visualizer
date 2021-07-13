@@ -1,15 +1,15 @@
 import { v4 as uuidv4 } from "uuid";
 import "../css/Graph.css";
 import { useState } from "react";
-import { GraphType, NodeCords, GraphUnitTypes, GraphUnit } from "../types";
-import { depthFirstSearch } from "../algos/breadthFirstSearch";
-import { FC } from "react";
+import { GraphType, NodeCords, GraphUnitTypes } from "../types";
+import { breadthFirstSearch } from "../algos/breadthFirstSearch";
+import { deapthFirstSearch } from "../algos/depthFirstSearch";
 import { FindNodeType } from "../functions/GraphFunctions";
 import { useRef } from "react";
 import GraphNode from "./GraphNode";
 
-const START_NODE_CORDS: NodeCords = [2, 2];
-const FINISH_NODE_CORDS: NodeCords = [24, 38];
+const START_NODE_CORDS: NodeCords = [6, 6];
+const FINISH_NODE_CORDS: NodeCords = [20, 34];
 const GRAPH_HEIGHT: number = 27;
 const GRAPH_WIDTH: number = 41;
 
@@ -85,7 +85,11 @@ const renderGraph = (graph: GraphType, setGraph: React.Dispatch<React.SetStateAc
 
 //The actual functional compoenet that renders the graph as a whole with buttons
 const Graph = () => {
-	const [Graph, SetGraph] = useState(generateGraph(START_NODE_CORDS, FINISH_NODE_CORDS, GRAPH_HEIGHT, GRAPH_WIDTH));
+	const startNodeRef = useRef(START_NODE_CORDS);
+	const finishNodeRef = useRef(FINISH_NODE_CORDS);
+	const [Graph, SetGraph] = useState(
+		generateGraph(startNodeRef.current, finishNodeRef.current, GRAPH_HEIGHT, GRAPH_WIDTH)
+	);
 
 	return (
 		<div
@@ -98,7 +102,14 @@ const Graph = () => {
 
 			<button
 				onClick={() => {
-					depthFirstSearch(Graph, SetGraph);
+					breadthFirstSearch(Graph, SetGraph);
+				}}
+			>
+				Breadth First Search
+			</button>
+			<button
+				onClick={() => {
+					deapthFirstSearch(Graph, SetGraph);
 				}}
 			>
 				Depth First Search
@@ -106,7 +117,9 @@ const Graph = () => {
 
 			<button
 				onClick={() => {
-					SetGraph(generateGraph(START_NODE_CORDS, FINISH_NODE_CORDS, GRAPH_HEIGHT, GRAPH_WIDTH));
+					const StartNode = FindNodeType(Graph, GraphUnitTypes.START);
+					const FinishNode = FindNodeType(Graph, GraphUnitTypes.FINISH);
+					SetGraph(generateGraph(StartNode.cords, FinishNode.cords, GRAPH_HEIGHT, GRAPH_WIDTH));
 				}}
 			>
 				Reset
