@@ -11,7 +11,8 @@ const TIMER_BETWEEN_RENDERS = 30;
 
 export const breadthFirstSearch = (
   Graph: GraphType,
-  SetGraph: React.Dispatch<React.SetStateAction<GraphType>>
+  SetGraph: React.Dispatch<React.SetStateAction<GraphType>>,
+  endingProgramCallback: () => void
 ) => {
   const StartNode = FindNodeType(Graph, GraphUnitTypes.START);
   const FinishNode = FindNodeType(Graph, GraphUnitTypes.FINISH);
@@ -68,6 +69,7 @@ export const breadthFirstSearch = (
     Graph,
     SetGraph,
     FinishNode,
-    StartNode
+    StartNode,
+    endingProgramCallback
   );
 };

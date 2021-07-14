@@ -19,15 +19,16 @@ const runAlgorithim = (
   Graph: GraphUnit[][],
   setGraph: React.Dispatch<React.SetStateAction<GraphType>>,
   GRAPH_HEIGHT: number,
-  GRAPH_WIDTH: number
+  GRAPH_WIDTH: number,
+  endingProgramCallback: () => void
 ) => {
   resetTheGraph(Graph, setGraph, GRAPH_HEIGHT, GRAPH_WIDTH);
   switch (algoToRun) {
     case AlgoTypes.BFS:
-      breadthFirstSearch(Graph, setGraph);
+      breadthFirstSearch(Graph, setGraph, endingProgramCallback);
       break;
     case AlgoTypes.DFS:
-      deapthFirstSearch(Graph, setGraph);
+      deapthFirstSearch(Graph, setGraph, endingProgramCallback);
       break;
   }
 };
@@ -52,6 +53,11 @@ const OptionsBar: FC<OptionsBarContent> = ({
   GRAPH_WIDTH,
 }) => {
   const [currentAlgo, setCurrentAlgo] = useState(AlgoTypes.BFS);
+  const [isAlgoRunning, setIsAlgoRunning] = useState(false);
+
+  const setAlgoRunningToFalse = () => {
+    setIsAlgoRunning(false);
+  };
 
   return (
     <div className="tool-bar">
@@ -60,9 +66,19 @@ const OptionsBar: FC<OptionsBarContent> = ({
         setCurrentSelection={setCurrentAlgo}
       />
       <button
-        onClick={() =>
-          runAlgorithim(currentAlgo, Graph, SetGraph, GRAPH_HEIGHT, GRAPH_WIDTH)
-        }
+        onClick={() => {
+          if (!isAlgoRunning) {
+            runAlgorithim(
+              currentAlgo,
+              Graph,
+              SetGraph,
+              GRAPH_HEIGHT,
+              GRAPH_WIDTH,
+              setAlgoRunningToFalse
+            );
+            setIsAlgoRunning(true);
+          }
+        }}
       >
         Run Algorithim
       </button>

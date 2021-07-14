@@ -5,6 +5,7 @@ import {
   findAdjancentNonQueuedNodes,
   displayShortestPathUsingPreviousNode,
 } from "../functions/GraphFunctions";
+import React from "react";
 
 const TIME_TO_DELAY = 30;
 
@@ -21,7 +22,8 @@ const hasNodeNotBeenVisited = (
 
 export const deapthFirstSearch = (
   Graph: GraphType,
-  SetGraph: React.Dispatch<React.SetStateAction<GraphType>>
+  SetGraph: React.Dispatch<React.SetStateAction<GraphType>>,
+  endingProgramCallback: () => void
 ) => {
   const StartNode = FindNodeType(Graph, GraphUnitTypes.START);
   const FinishNode = FindNodeType(Graph, GraphUnitTypes.FINISH);
@@ -77,6 +79,7 @@ export const deapthFirstSearch = (
     Graph,
     SetGraph,
     FinishNode,
-    StartNode
+    StartNode,
+    endingProgramCallback
   );
 };

@@ -109,7 +109,8 @@ export const displayShortestPathUsingPreviousNode = (
   Graph: GraphType,
   SetGraph: React.Dispatch<React.SetStateAction<GraphType>>,
   FinishNode: GraphUnit,
-  StartNode: GraphUnit
+  StartNode: GraphUnit,
+  endingProgramCallback: () => void
 ) => {
   //displaying the shortest path by following the linked list back
 
@@ -158,4 +159,8 @@ export const displayShortestPathUsingPreviousNode = (
     TIMER_BETWEEN_RENDERS,
     timer
   );
+
+  setTimeout(() => {
+    endingProgramCallback();
+  }, timer * TIMER_BETWEEN_RENDERS);
 };
