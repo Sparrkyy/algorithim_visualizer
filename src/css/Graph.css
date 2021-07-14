@@ -1,6 +1,6 @@
 .graph-unit {
-	height: 17px;
-	width: 17px;
+	height: 12px;
+	width: 12px;
 	display: flex;
 }
 
@@ -44,7 +44,7 @@
 	height: 100%;
 	border-radius: 50%;
 	background-color: yellow;
-	/* animation: visited-node-animation 0.5s forwards; */
+	animation: visited-node-animation 0.5s forwards;
 }
 
 @keyframes visited-node-animation {

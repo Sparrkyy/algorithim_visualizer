@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
+//import { v4 as uuidv4 } from "uuid";
 import "../css/Graph.css";
 import { useState } from "react";
 import { GraphType, NodeCords, GraphUnitTypes } from "../types";
@@ -10,8 +10,8 @@ import GraphNode from "./GraphNode";
 
 const START_NODE_CORDS: NodeCords = [6, 6];
 const FINISH_NODE_CORDS: NodeCords = [20, 34];
-const GRAPH_HEIGHT: number = 27;
-const GRAPH_WIDTH: number = 41;
+const GRAPH_HEIGHT: number = 23;
+const GRAPH_WIDTH: number = 51;
 
 //Function used to generate the code representation of the graph
 const generateGraph = (startNode: NodeCords, finishNode: NodeCords, width: number, height: number) => {
@@ -70,11 +70,11 @@ const renderGraph = (graph: GraphType, setGraph: React.Dispatch<React.SetStateAc
 	return (
 		<>
 			{" "}
-			{graph.map((row) => {
+			{graph.map((row, i) => {
 				return (
-					<div className='graph-col' key={uuidv4()}>
-						{row.map((item) => {
-							return <GraphNode key={uuidv4()} GraphNode={item} setGraph={setGraph} Graph={graph} />;
+					<div className='graph-col' key={i}>
+						{row.map((item, j) => {
+							return <GraphNode GraphNode={item} setGraph={setGraph} Graph={graph} key={i + j} />;
 						})}
 					</div>
 				);

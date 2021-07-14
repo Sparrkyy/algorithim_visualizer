@@ -1,7 +1,7 @@
 import { GraphType, GraphUnitTypes, NodeCords } from "../types";
 import { TimeoutChangeGraphUnitType, FindNodeType, findAdjancentNodes } from "../functions/GraphFunctions";
 
-const TIME_TO_DELAY = 20;
+const TIME_TO_DELAY = 30;
 
 export const deapthFirstSearch = (Graph: GraphType, SetGraph: React.Dispatch<React.SetStateAction<GraphType>>) => {
 	const StartNode = FindNodeType(Graph, GraphUnitTypes.START);

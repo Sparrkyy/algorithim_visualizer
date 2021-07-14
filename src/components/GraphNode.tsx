@@ -1,6 +1,7 @@
 import { GraphType, GraphUnit, GraphUnitTypes } from "../types";
 import { FindNodeType } from "../functions/GraphFunctions";
 import { FC, useState } from "react";
+import { memo } from "react";
 
 interface GraphNodeContents {
 	GraphNode: GraphUnit;
@@ -8,7 +9,7 @@ interface GraphNodeContents {
 	Graph: GraphType;
 }
 
-const GraphNode: FC<GraphNodeContents> = ({ GraphNode, setGraph, Graph }) => {
+const GraphNode: FC<GraphNodeContents> = memo(({ GraphNode, setGraph }) => {
 	const [menuOpen, setMenu] = useState(false);
 	const handleClick = () => {
 		setMenu(!menuOpen);
@@ -75,6 +76,6 @@ const GraphNode: FC<GraphNodeContents> = ({ GraphNode, setGraph, Graph }) => {
 				)}
 		</div>
 	);
-};
+});
 
 export default GraphNode;
