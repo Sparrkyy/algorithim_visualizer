@@ -1,101 +1,101 @@
 .graph-unit {
-	height: 12px;
-	width: 12px;
-	display: flex;
+  height: 17px;
+  width: 17px;
+  display: flex;
 }
 
 .normal-node {
-	width: 100%;
-	height: 100%;
-	border-radius: 50%;
-	background-color: blue;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: blue;
 }
 
 .start-node {
-	width: 100%;
-	height: 100%;
-	border-radius: 50%;
-	background-color: green;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: green;
 }
 
 .finish-node {
-	width: 100%;
-	height: 100%;
-	border-radius: 50%;
-	background-color: red;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: red;
 }
 
 .left-right-edge {
-	background-color: black;
-	height: 3px;
-	width: 100%;
-	margin-top: 50%;
+  background-color: black;
+  height: 3px;
+  width: 100%;
+  margin-top: 50%;
 }
 
 .up-down-edge {
-	height: 100%;
-	margin-left: 50%;
-	background-color: black;
-	width: 3px;
+  height: 100%;
+  margin-left: 50%;
+  background-color: black;
+  width: 3px;
 }
 
 .visited-node {
-	width: 100%;
-	height: 100%;
-	border-radius: 50%;
-	background-color: yellow;
-	animation: visited-node-animation 0.5s forwards;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: yellow;
+  animation: visited-node-animation 0.5s forwards;
 }
 
 @keyframes visited-node-animation {
-	0% {
-		background-color: aqua;
-	}
-	25% {
-		background-color: red;
-	}
-	75% {
-		background-color: black;
-	}
-	100% {
-		background-color: yellow;
-	}
+  0% {
+    background-color: aqua;
+  }
+  25% {
+    background-color: red;
+  }
+  75% {
+    background-color: black;
+  }
+  100% {
+    background-color: yellow;
+  }
 }
 
 .node-in-queue {
-	width: 100%;
-	height: 100%;
-	border-radius: 50%;
-	background-color: blue;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: blue;
 }
 
 .shortest-path-node {
-	width: 100%;
-	height: 100%;
-	border-radius: 50%;
-	background-color: purple;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: purple;
 }
 
 .graph_container {
 }
 
 .graph-col {
-	display: flex;
+  display: flex;
 }
 
 .node-selection-menu {
-	position: absolute;
+  position: absolute;
 
-	background-color: white;
+  background-color: white;
 }
 
 .node-selection-menu-option {
-	text-align: center;
-	padding: 0.5rem;
-	border: 1px lightgray solid;
+  text-align: center;
+  padding: 0.5rem;
+  border: 1px lightgray solid;
 }
 
 .node-selection-menu-option:hover {
-	cursor: pointer;
-	background-color: whitesmoke;
+  cursor: pointer;
+  background-color: whitesmoke;
 }
