@@ -2,11 +2,12 @@
 import "../css/Graph.css";
 import { useState } from "react";
 import { GraphType, NodeCords, GraphUnitTypes } from "../types";
-import { breadthFirstSearch } from "../algos/breadthFirstSearch";
-import { deapthFirstSearch } from "../algos/depthFirstSearch";
-import { FindNodeType } from "../functions/GraphFunctions";
+//import { breadthFirstSearch } from "../algos/breadthFirstSearch";
+//import { deapthFirstSearch } from "../algos/depthFirstSearch";
+//import { FindNodeType } from "../functions/GraphFunctions";
 import { useRef } from "react";
 import GraphNode from "./GraphNode";
+import OptionsBar from "./OptionsBar";
 
 const START_NODE_CORDS: NodeCords = [6, 6];
 const FINISH_NODE_CORDS: NodeCords = [20, 34];
@@ -14,7 +15,7 @@ const GRAPH_HEIGHT: number = 23;
 const GRAPH_WIDTH: number = 51;
 
 //Function used to generate the code representation of the graph
-const generateGraph = (
+export const generateGraph = (
   startNode: NodeCords,
   finishNode: NodeCords,
   width: number,
@@ -145,39 +146,12 @@ const GraphComponent = () => {
       <div style={{}} className="graph_container">
         {renderGraph(Graph, SetGraph)}
       </div>
-      <div className="tool-bar" style={{ display: "flex", gap: "10px" }}>
-        <button
-          onClick={() => {
-            breadthFirstSearch(Graph, SetGraph);
-          }}
-        >
-          Breadth First Search
-        </button>
-        <button
-          onClick={() => {
-            deapthFirstSearch(Graph, SetGraph);
-          }}
-        >
-          Depth First Search
-        </button>
-
-        <button
-          onClick={() => {
-            const StartNode = FindNodeType(Graph, GraphUnitTypes.START);
-            const FinishNode = FindNodeType(Graph, GraphUnitTypes.FINISH);
-            SetGraph(
-              generateGraph(
-                StartNode.cords,
-                FinishNode.cords,
-                GRAPH_HEIGHT,
-                GRAPH_WIDTH
-              )
-            );
-          }}
-        >
-          Reset
-        </button>
-      </div>
+      <OptionsBar
+        Graph={Graph}
+        SetGraph={SetGraph}
+        GRAPH_HEIGHT={GRAPH_HEIGHT}
+        GRAPH_WIDTH={GRAPH_WIDTH}
+      />
     </div>
   );
 };
