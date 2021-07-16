@@ -1,14 +1,34 @@
+:root{
+  --blue: #A1C3d1;
+  --purple: #b39bc8;
+  --white:#F0EBF4;
+  --salmon: #F172A1;
+  --pink: #E64398;
+  --black: #444444;
+  --bright-white: #f3f3f3;
+  --node-diameter: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 .graph-unit {
-  height: 17px;
-  width: 17px;
+  height: var(--node-diameter);
+  width: var(--node-diameter);
   display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
 
 .normal-node {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: blue;
+  background-color: var(--purple);
+  border: 1px gray solid;
+  
 }
 
 .start-node {
@@ -26,16 +46,16 @@
 }
 
 .left-right-edge {
-  background-color: black;
+  background-color: gray;
   height: 3px;
   width: 100%;
-  margin-top: 50%;
+  
 }
 
 .up-down-edge {
   height: 100%;
-  margin-left: 50%;
-  background-color: black;
+  
+  background-color: gray;
   width: 3px;
 }
 
@@ -43,22 +63,25 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: yellow;
-  animation: visited-node-animation 0.5s forwards;
+  
+  animation: visited-node-animation 3s forwards;
 }
 
 @keyframes visited-node-animation {
   0% {
-    background-color: aqua;
+    background-color: var(--salmon);
+    height: 1px;
+    width: 1px;
   }
-  25% {
-    background-color: red;
+
+  50% {
+    background-color: purple;
   }
-  75% {
-    background-color: black;
-  }
+  
   100% {
-    background-color: yellow;
+    background-color: var(--pink);
+    height: var(--node-diameter);
+    width: var(--node-diameter);
   }
 }
 

@@ -6,6 +6,12 @@ import { FindNodeType } from "../functions/GraphFunctions";
 import { generateGraph } from "../components/Graph";
 import DropdownSelector from "./DropdownSelector";
 import "../css/Toolbar.css";
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from "@material-ui/core/Button"
 
 interface OptionsBarContent {
   Graph: GraphUnit[][];
@@ -61,11 +67,19 @@ const OptionsBar: FC<OptionsBarContent> = ({
 
   return (
     <div className="tool-bar">
-      <DropdownSelector
-        currentSelection={currentAlgo}
-        setCurrentSelection={setCurrentAlgo}
-      />
-      <button
+      <FormControl>
+        <InputLabel>Algorithim Type</InputLabel>
+        <Select labelId="algorithim-selector-helper-label" id="algorithim-selector-helper" value={currentAlgo} onChange={(e)=>{ setCurrentAlgo(e.target.value as AlgoTypes)}} >
+         {Object.entries(AlgoTypes).map((item)=>{
+           return <MenuItem value={item[1]}>{item[1]}</MenuItem>
+         })} 
+        </Select>
+         <FormHelperText>The Algorithim to run</FormHelperText>
+      </FormControl>
+      <Button
+        variant="contained"
+        color="primary"
+        disabled={isAlgoRunning}
         onClick={() => {
           if (!isAlgoRunning) {
             runAlgorithim(
@@ -81,14 +95,20 @@ const OptionsBar: FC<OptionsBarContent> = ({
         }}
       >
         Run Algorithim
-      </button>
-      <button
+      </Button>
+      <Button
+      variant="contained"
+      color="secondary"
+      disabled={isAlgoRunning}
         onClick={() => {
+          if (!isAlgoRunning){
+
           resetTheGraph(Graph, SetGraph, GRAPH_HEIGHT, GRAPH_WIDTH);
+          }
         }}
       >
         Reset
-      </button>
+      </Button>
     </div>
   );
 };

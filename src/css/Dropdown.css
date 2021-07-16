@@ -1,3 +1,11 @@
+:root{
+  --blue: #A1C3d1;
+  --purple: #b39bc8;
+  --white:#F0EBF4;
+  --salmon: #F172A1;
+  --pink: #E64398;
+}
+
 .dropdown-selector {
   position: absolute;
   padding: 0.5rem;
