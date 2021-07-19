@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { breadthFirstSearch } from "../algos/breadthFirstSearch";
 import { deapthFirstSearch } from "../algos/depthFirstSearch";
 import { GraphType, GraphUnit, GraphUnitTypes, AlgoTypes } from "../types";
-import { FindNodeType } from "../functions/GraphFunctions";
+import { FindNodeType, makeEmptySpace } from "../functions/GraphFunctions";
 import { generateGraph } from "../components/Graph";
 //import DropdownSelector from "./DropdownSelector";
 import "../css/Toolbar.css";
@@ -118,6 +118,13 @@ const OptionsBar: FC<OptionsBarContent> = ({ Graph, SetGraph, GRAPH_HEIGHT, GRAP
 				}}
 			>
 				Reset
+			</Button>
+			<Button
+				onClick={() => {
+					makeEmptySpace(Graph, SetGraph, 20, 24, GRAPH_HEIGHT, GRAPH_WIDTH);
+				}}
+			>
+				Delete Node
 			</Button>
 		</div>
 	);
