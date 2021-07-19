@@ -40,7 +40,7 @@ export const deapthFirstSearch = (
 		const currentNode = Stack.shift();
 
 		if (!currentNode) throw new Error("The stack was empty when that was already checked");
-		TimeoutChangeGraphUnitType(
+		timer = TimeoutChangeGraphUnitType(
 			currentNode[0],
 			currentNode[1],
 			SetGraph,

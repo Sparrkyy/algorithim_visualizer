@@ -4,7 +4,7 @@ import { deapthFirstSearch } from "../algos/depthFirstSearch";
 import { GraphType, GraphUnit, GraphUnitTypes, AlgoTypes } from "../types";
 import { FindNodeType } from "../functions/GraphFunctions";
 import { generateGraph } from "../components/Graph";
-import DropdownSelector from "./DropdownSelector";
+//import DropdownSelector from "./DropdownSelector";
 import "../css/Toolbar.css";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
