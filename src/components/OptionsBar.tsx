@@ -53,7 +53,7 @@ const resetTheGraph = (
 
 const OptionsBar: FC<OptionsBarContent> = ({ Graph, SetGraph, GRAPH_HEIGHT, GRAPH_WIDTH }) => {
 	const [currentAlgo, setCurrentAlgo] = useState(AlgoTypes.BFS);
-	const [DELAY_TIME, setDelayTime] = useState(40);
+	const [DELAY_TIME, setDelayTime] = useState(60);
 	const [isAlgoRunning, setIsAlgoRunning] = useState(false);
 
 	const setAlgoRunningToFalse = () => {
@@ -88,8 +88,8 @@ const OptionsBar: FC<OptionsBarContent> = ({ Graph, SetGraph, GRAPH_HEIGHT, GRAP
 						setDelayTime(e.target.value as number);
 					}}
 				>
-					<MenuItem value={60}>Slow</MenuItem>
-					<MenuItem value={40}>Medium</MenuItem>
+					<MenuItem value={100}>Slow</MenuItem>
+					<MenuItem value={60}>Medium</MenuItem>
 					<MenuItem value={20}>Fast</MenuItem>
 				</Select>
 				<FormHelperText>The speed it runs</FormHelperText>

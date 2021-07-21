@@ -173,6 +173,10 @@ export const makeEmptySpace = (
 	//for each neighbor, make the edge empty space
 	ChangeGraphUnitType(Xcord, Ycord, SetGraph, GraphUnitTypes.EMPTY_SPACE);
 	neighbors.forEach((item) => {
-		ChangeGraphUnitType(item[0], item[1], SetGraph, GraphUnitTypes.EMPTY_SPACE);
+		if (Xcord === item[0]) {
+			ChangeGraphUnitType(item[0], (Ycord + item[1]) / 2, SetGraph, GraphUnitTypes.EMPTY_SPACE);
+		} else if (Ycord === item[1]) {
+			ChangeGraphUnitType((Xcord + item[0]) / 2, item[1], SetGraph, GraphUnitTypes.EMPTY_SPACE);
+		}
 	});
 };
