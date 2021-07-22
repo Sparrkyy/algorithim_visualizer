@@ -9,6 +9,14 @@ export const hasNodeNotBeenQueued = (Graph: GraphType, MarkingNodeCords: NodeCor
 	return false;
 };
 
+const nodeIsNotEmptySpace = (Graph: GraphType, MarkingNodeCords: NodeCords) => {
+	const [X, Y] = MarkingNodeCords;
+	if (Graph[X][Y].type !== GraphUnitTypes.EMPTY_SPACE) {
+		return true;
+	}
+	return false;
+};
+
 //Finds all the nodes around a single node
 export const findAdjancentNonQueuedNodes = (
 	Node: NodeCords,
@@ -23,23 +31,21 @@ export const findAdjancentNonQueuedNodes = (
 	const LeftNodeCords: NodeCords = [Node[0] - 2, Node[1]];
 
 	const AdjancentNodes: NodeCords[] = [];
-	//I should make a function for this
-	//Graph[TopNodeCords[0]][TopNodeCords[1]].type !== GraphUnitTypes.VISITED_NODE && Graph[TopNodeCords[0]][TopNodeCords[1]].type !== GraphUnitTypes.NODE_IN_QUEUE
 
-	//Graph[TopNodeCords[0]][TopNodeCords[1]].visited === false
-	if (TopNodeCords[1] >= 0 && callbackCheck(Graph, TopNodeCords)) {
+	if (TopNodeCords[1] >= 0 && callbackCheck(Graph, TopNodeCords) && nodeIsNotEmptySpace(Graph, TopNodeCords)) {
 		AdjancentNodes.push(TopNodeCords);
 	}
-	//Graph[RightNodeCords[0]][RightNodeCords[1]].visited === false
-	if (RightNodeCords[0] <= Width && callbackCheck(Graph, RightNodeCords)) {
+	if (RightNodeCords[0] < Width && callbackCheck(Graph, RightNodeCords) && nodeIsNotEmptySpace(Graph, RightNodeCords)) {
 		AdjancentNodes.push(RightNodeCords);
 	}
-	//Graph[BottomNodeCords[0]][BottomNodeCords[1]].visited === false
-	if (BottomNodeCords[1] <= Height && callbackCheck(Graph, BottomNodeCords)) {
+	if (
+		BottomNodeCords[1] < Height &&
+		callbackCheck(Graph, BottomNodeCords) &&
+		nodeIsNotEmptySpace(Graph, BottomNodeCords)
+	) {
 		AdjancentNodes.push(BottomNodeCords);
 	}
-	//Graph[LeftNodeCords[0]][LeftNodeCords[1]].visited === false
-	if (LeftNodeCords[0] >= 0 && callbackCheck(Graph, LeftNodeCords)) {
+	if (LeftNodeCords[0] >= 0 && callbackCheck(Graph, LeftNodeCords) && nodeIsNotEmptySpace(Graph, LeftNodeCords)) {
 		AdjancentNodes.push(LeftNodeCords);
 	}
 	return AdjancentNodes;

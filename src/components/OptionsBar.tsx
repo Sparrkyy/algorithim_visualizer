@@ -29,7 +29,7 @@ const runAlgorithim = (
 	endingProgramCallback: () => void,
 	DELAY_TIME: number
 ) => {
-	resetTheGraph(Graph, setGraph, GRAPH_HEIGHT, GRAPH_WIDTH);
+	//resetTheGraph(Graph, setGraph, GRAPH_HEIGHT, GRAPH_WIDTH);
 	switch (algoToRun) {
 		case AlgoTypes.BFS:
 			breadthFirstSearch(Graph, setGraph, endingProgramCallback, DELAY_TIME);
@@ -73,7 +73,11 @@ const OptionsBar: FC<OptionsBarContent> = ({ Graph, SetGraph, GRAPH_HEIGHT, GRAP
 					}}
 				>
 					{Object.entries(AlgoTypes).map((item) => {
-						return <MenuItem value={item[1]}>{item[1]}</MenuItem>;
+						return (
+							<MenuItem value={item[1]} key={item[1]}>
+								{item[1]}
+							</MenuItem>
+						);
 					})}
 				</Select>
 				<FormHelperText>The Algorithim to run</FormHelperText>
@@ -120,8 +124,17 @@ const OptionsBar: FC<OptionsBarContent> = ({ Graph, SetGraph, GRAPH_HEIGHT, GRAP
 				Reset
 			</Button>
 			<Button
+				disabled={isAlgoRunning}
 				onClick={() => {
-					makeEmptySpace(Graph, SetGraph, 20, 24, GRAPH_HEIGHT, GRAPH_WIDTH);
+					const DeleteList = [
+						[12, 20],
+						[14, 20],
+						[16, 20],
+						[18, 20],
+						[20, 20],
+					];
+					DeleteList.forEach((cord) => makeEmptySpace(Graph, SetGraph, cord[0], cord[1], GRAPH_WIDTH, GRAPH_HEIGHT));
+					//makeEmptySpace(Graph, SetGraph, 20, 24, GRAPH_HEIGHT, GRAPH_WIDTH);
 				}}
 			>
 				Delete Node
