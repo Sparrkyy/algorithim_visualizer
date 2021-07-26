@@ -64,7 +64,7 @@ const OptionsBar: FC<OptionsBarContent> = ({
 	const [currentAlgo, setCurrentAlgo] = useState(AlgoTypes.BFS);
 	const [DELAY_TIME, setDelayTime] = useState(60);
 	const [isAlgoRunning, setIsAlgoRunning] = useState(false);
-	const [graphSize, setGraphSize] = useState(20);
+	const [graphSize, setGraphSize] = useState(27);
 
 	const setAlgoRunningToFalse = () => {
 		setIsAlgoRunning(false);
@@ -81,13 +81,14 @@ const OptionsBar: FC<OptionsBarContent> = ({
 					onChange={(e) => {
 						setGraphSize(e.target.value as number);
 						setGraphHeight(e.target.value as number);
+						setGraphWidth((e.target.value as number) + 10);
 					}}
 				>
-					<MenuItem value={10}>Small</MenuItem>
-					<MenuItem value={20}>Medium</MenuItem>
-					<MenuItem value={30}>Large</MenuItem>
+					<MenuItem value={11}>Small</MenuItem>
+					<MenuItem value={21}>Medium</MenuItem>
+					<MenuItem value={27}>Large</MenuItem>
 				</Select>
-				<FormHelperText>The size of the graph</FormHelperText>
+				<FormHelperText>Hit reset after changing sizes</FormHelperText>
 			</FormControl>
 			<FormControl style={{ width: "180px" }}>
 				<InputLabel>Algorithim Type</InputLabel>

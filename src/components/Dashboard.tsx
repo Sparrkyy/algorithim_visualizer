@@ -11,7 +11,7 @@ const Dashboard: FC = () => {
 	const startNodeRef = useRef(START_NODE_CORDS);
 	const finishNodeRef = useRef(FINISH_NODE_CORDS);
 	const [graphHeight, setGraphHeight] = useState(27);
-	const [graphWidth, setGraphWidth] = useState(53);
+	const [graphWidth, setGraphWidth] = useState(37);
 	const [graph, setGraph] = useState(
 		generateGraph(startNodeRef.current, finishNodeRef.current, graphHeight, graphWidth)
 	);
