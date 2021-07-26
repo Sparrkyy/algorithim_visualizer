@@ -32,7 +32,7 @@ export const findAdjancentNonQueuedNodes = (
 
 	const AdjancentNodes: NodeCords[] = [];
 
-	if (TopNodeCords[1] > 0 && callbackCheck(Graph, TopNodeCords) && nodeIsNotEmptySpace(Graph, TopNodeCords)) {
+	if (TopNodeCords[1] >= 0 && callbackCheck(Graph, TopNodeCords) && nodeIsNotEmptySpace(Graph, TopNodeCords)) {
 		AdjancentNodes.push(TopNodeCords);
 	}
 	if (
@@ -49,7 +49,7 @@ export const findAdjancentNonQueuedNodes = (
 	) {
 		AdjancentNodes.push(BottomNodeCords);
 	}
-	if (LeftNodeCords[0] > 0 && callbackCheck(Graph, LeftNodeCords) && nodeIsNotEmptySpace(Graph, LeftNodeCords)) {
+	if (LeftNodeCords[0] >= 0 && callbackCheck(Graph, LeftNodeCords) && nodeIsNotEmptySpace(Graph, LeftNodeCords)) {
 		AdjancentNodes.push(LeftNodeCords);
 	}
 	return AdjancentNodes;
@@ -59,8 +59,11 @@ export const findAdjancentNonQueuedNodes = (
 export const ChangeGraphUnitType = (
 	Xcord: number,
 	Ycord: number,
+	Graph: GraphType,
 	SetGraph: React.Dispatch<React.SetStateAction<GraphType>>,
-	TypeToChange: GraphUnitTypes
+	TypeToChange: GraphUnitTypes,
+	deleteEdges: boolean = false,
+	replacePreviousEdge: boolean = false
 ) => {
 	SetGraph((prevGraph) => {
 		const dup = [...prevGraph];
@@ -69,6 +72,34 @@ export const ChangeGraphUnitType = (
 		} else {
 			console.log(dup[Xcord][Ycord].type);
 		}
+		if (deleteEdges) {
+			if (Xcord + 1 < Graph.length) {
+				dup[Xcord + 1][Ycord].type = GraphUnitTypes.EMPTY_SPACE;
+			}
+			if (Xcord - 1 >= 0) {
+				dup[Xcord - 1][Ycord].type = GraphUnitTypes.EMPTY_SPACE;
+			}
+			if (Ycord + 1 < Graph[0].length) {
+				dup[Xcord][Ycord + 1].type = GraphUnitTypes.EMPTY_SPACE;
+			}
+			if (Ycord - 1 >= 0) {
+				dup[Xcord][Ycord - 1].type = GraphUnitTypes.EMPTY_SPACE;
+			}
+		}
+
+		const prevNode = dup[Xcord][Ycord].previous;
+		if (replacePreviousEdge && prevNode) {
+			if (Xcord === prevNode[0]) {
+				dup[(Xcord + prevNode[0]) / 2][(Ycord + prevNode[1]) / 2].type = GraphUnitTypes.LEFT_RIGHT_EDGE;
+			} else {
+				dup[(Xcord + prevNode[0]) / 2][(Ycord + prevNode[1]) / 2].type = GraphUnitTypes.UP_DOWN_EDGE;
+			}
+			//dup[(Xcord + prevNode[0])/2][(Ycord + prevNode[1])/2].type
+		}
+		// const prevCords = dup[Xcord][Ycord].previous;
+		// if (DeletePreviousEdge && prevCords) {
+		// 	dup[(Xcord + prevCords[0]) / 2][(Ycord + prevCords[1]) / 2].type = GraphUnitTypes.EMPTY_SPACE;
+		// }
 		return dup;
 	});
 };
@@ -80,10 +111,13 @@ export const TimeoutChangeGraphUnitType = (
 	SetGraph: React.Dispatch<React.SetStateAction<GraphType>>,
 	TypeToChange: GraphUnitTypes,
 	MuliplierToDelay: number,
-	CurrentTime: number
+	CurrentTime: number,
+	deleteEdges: boolean,
+	Graph: GraphType,
+	replacePreviousEdge: boolean = false
 ) => {
 	setTimeout(function () {
-		ChangeGraphUnitType(Xcord, Ycord, SetGraph, TypeToChange);
+		ChangeGraphUnitType(Xcord, Ycord, Graph, SetGraph, TypeToChange, deleteEdges, replacePreviousEdge);
 	}, CurrentTime * MuliplierToDelay);
 	return CurrentTime + 1;
 };
@@ -141,7 +175,10 @@ export const displayShortestPathUsingPreviousNode = (
 			SetGraph,
 			GraphUnitTypes.IN_SHORTEST_PATH_NODE,
 			TIMER_BETWEEN_RENDERS,
-			timer
+			timer,
+			false,
+			Graph,
+			true
 		);
 	});
 
@@ -152,7 +189,10 @@ export const displayShortestPathUsingPreviousNode = (
 		SetGraph,
 		GraphUnitTypes.START,
 		TIMER_BETWEEN_RENDERS,
-		timer
+		timer,
+		false,
+		Graph,
+		true
 	);
 	//recoloring the FINISH node
 	timer = TimeoutChangeGraphUnitType(
@@ -161,7 +201,10 @@ export const displayShortestPathUsingPreviousNode = (
 		SetGraph,
 		GraphUnitTypes.FINISH,
 		TIMER_BETWEEN_RENDERS,
-		timer
+		timer,
+		false,
+		Graph,
+		true
 	);
 
 	setTimeout(() => {
@@ -178,15 +221,28 @@ export const makeEmptySpace = (
 	width: number,
 	height: number
 ) => {
+	ChangeGraphUnitType(Xcord, Ycord, Graph, SetGraph, GraphUnitTypes.EMPTY_SPACE, false);
+	deleteNodeEdges(Graph, SetGraph, Xcord, Ycord, width, height);
+};
+
+export const deleteNodeEdges = (
+	Graph: GraphType,
+	SetGraph: React.Dispatch<React.SetStateAction<GraphType>>,
+	Xcord: number,
+	Ycord: number,
+	width: number,
+	height: number
+) => {
 	//Getting node neighbors
 	const neighbors = findAdjancentNonQueuedNodes([Xcord, Ycord], Graph, height, width, () => true);
-	//for each neighbor, make the edge empty space
-	ChangeGraphUnitType(Xcord, Ycord, SetGraph, GraphUnitTypes.EMPTY_SPACE);
 	neighbors.forEach((item) => {
-		if (Xcord === item[0]) {
-			ChangeGraphUnitType(item[0], (Ycord + item[1]) / 2, SetGraph, GraphUnitTypes.EMPTY_SPACE);
-		} else if (Ycord === item[1]) {
-			ChangeGraphUnitType((Xcord + item[0]) / 2, item[1], SetGraph, GraphUnitTypes.EMPTY_SPACE);
-		}
+		ChangeGraphUnitType(
+			(Xcord + item[0]) / 2,
+			(Ycord + item[1]) / 2,
+			Graph,
+			SetGraph,
+			GraphUnitTypes.EMPTY_SPACE,
+			false
+		);
 	});
 };

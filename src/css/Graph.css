@@ -6,7 +6,7 @@
 	--pink: #e64398;
 	--black: #444444;
 	--bright-white: #f3f3f3;
-	--node-diameter: 24px;
+	--node-diameter: 21px;
 	--edges-and-borders: #f0ebf4;
 }
 
@@ -62,7 +62,7 @@
 	height: 100%;
 	border-radius: 50%;
 
-	animation: visited-node-animation 3s forwards;
+	animation: visited-node-animation 5s forwards;
 }
 
 @keyframes visited-node-animation {
