@@ -1,32 +1,27 @@
-
-:root{
-  --blue: #A1C3d1;
-  --purple: #b39bc8;
-  --white:#F0EBF4;
-  --salmon: #F172A1;
-  --pink: #E64398;
-  --bright-white: #ffffff;
+:root {
+	--blue: #a1c3d1;
+	--purple: #b39bc8;
+	--white: #f0ebf4;
+	--salmon: #f172a1;
+	--pink: #e64398;
+	--bright-white: #ffffff;
 }
 
-body,main{
-  margin: 0;
-  padding: 0;
+body,
+main {
+	margin: 0;
+	padding: 0;
 }
 
 h1,
 h2,
 h3,
 h4,
-h5{
-  margin: 0;
-  padding: 0;
+h5 {
+	margin: 0;
+	padding: 0;
 }
 
-
-body{
-  
-  background-color: var(--bright-white)
+body {
+	background-color: var(--blue);
 }
-
-
-

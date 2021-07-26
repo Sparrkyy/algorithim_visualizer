@@ -7,6 +7,7 @@
 	--black: #444444;
 	--bright-white: #f3f3f3;
 	--node-diameter: 24px;
+	--edges-and-borders: #f0ebf4;
 }
 
 * {
@@ -26,7 +27,7 @@
 	height: 100%;
 	border-radius: 50%;
 	background-color: var(--purple);
-	border: 1px gray solid;
+	border: 1px var(--edges-and-borders) solid;
 }
 
 .start-node {
@@ -44,7 +45,7 @@
 }
 
 .left-right-edge {
-	background-color: gray;
+	background-color: var(--edges-and-borders);
 	height: 3px;
 	width: 100%;
 }
@@ -52,7 +53,7 @@
 .up-down-edge {
 	height: 100%;
 
-	background-color: gray;
+	background-color: var(--edges-and-borders);
 	width: 3px;
 }
 

@@ -32,20 +32,24 @@ export const findAdjancentNonQueuedNodes = (
 
 	const AdjancentNodes: NodeCords[] = [];
 
-	if (TopNodeCords[1] >= 0 && callbackCheck(Graph, TopNodeCords) && nodeIsNotEmptySpace(Graph, TopNodeCords)) {
+	if (TopNodeCords[1] > 0 && callbackCheck(Graph, TopNodeCords) && nodeIsNotEmptySpace(Graph, TopNodeCords)) {
 		AdjancentNodes.push(TopNodeCords);
 	}
-	if (RightNodeCords[0] < Width && callbackCheck(Graph, RightNodeCords) && nodeIsNotEmptySpace(Graph, RightNodeCords)) {
+	if (
+		RightNodeCords[0] < Graph.length &&
+		callbackCheck(Graph, RightNodeCords) &&
+		nodeIsNotEmptySpace(Graph, RightNodeCords)
+	) {
 		AdjancentNodes.push(RightNodeCords);
 	}
 	if (
-		BottomNodeCords[1] < Height &&
+		BottomNodeCords[1] < Graph[0].length &&
 		callbackCheck(Graph, BottomNodeCords) &&
 		nodeIsNotEmptySpace(Graph, BottomNodeCords)
 	) {
 		AdjancentNodes.push(BottomNodeCords);
 	}
-	if (LeftNodeCords[0] >= 0 && callbackCheck(Graph, LeftNodeCords) && nodeIsNotEmptySpace(Graph, LeftNodeCords)) {
+	if (LeftNodeCords[0] > 0 && callbackCheck(Graph, LeftNodeCords) && nodeIsNotEmptySpace(Graph, LeftNodeCords)) {
 		AdjancentNodes.push(LeftNodeCords);
 	}
 	return AdjancentNodes;

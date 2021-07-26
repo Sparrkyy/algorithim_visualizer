@@ -5,7 +5,7 @@ import { GraphType, GraphUnit, GraphUnitTypes, AlgoTypes } from "../types";
 import { FindNodeType, makeEmptySpace } from "../functions/GraphFunctions";
 import { generateGraph } from "../components/Graph";
 //import DropdownSelector from "./DropdownSelector";
-import "../css/Toolbar.css";
+import "../css/OptionsBar.css";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
@@ -132,6 +132,8 @@ const OptionsBar: FC<OptionsBarContent> = ({ Graph, SetGraph, GRAPH_HEIGHT, GRAP
 						[16, 20],
 						[18, 20],
 						[20, 20],
+						[22, 20],
+						[10, 10],
 					];
 					DeleteList.forEach((cord) => makeEmptySpace(Graph, SetGraph, cord[0], cord[1], GRAPH_WIDTH, GRAPH_HEIGHT));
 					//makeEmptySpace(Graph, SetGraph, 20, 24, GRAPH_HEIGHT, GRAPH_WIDTH);
