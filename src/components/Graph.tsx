@@ -1,6 +1,6 @@
 //import { v4 as uuidv4 } from "uuid";
 import "../css/Graph.css";
-import { useState } from "react";
+import { useState, FC } from "react";
 import { GraphType, NodeCords, GraphUnitTypes } from "../types";
 //import { breadthFirstSearch } from "../algos/breadthFirstSearch";
 //import { deapthFirstSearch } from "../algos/depthFirstSearch";
@@ -9,10 +9,10 @@ import { useRef } from "react";
 import GraphNode from "./GraphNode";
 import OptionsBar from "./OptionsBar";
 
-const START_NODE_CORDS: NodeCords = [14, 10];
-const FINISH_NODE_CORDS: NodeCords = [14, 50];
-const GRAPH_HEIGHT: number = 27;
-const GRAPH_WIDTH: number = 53;
+// const START_NODE_CORDS: NodeCords = [14, 10];
+// const FINISH_NODE_CORDS: NodeCords = [14, 50];
+// const GRAPH_HEIGHT: number = 27;
+// const GRAPH_WIDTH: number = 53;
 
 //Function used to generate the code representation of the graph
 export const generateGraph = (startNode: NodeCords, finishNode: NodeCords, width: number, height: number) => {
@@ -103,14 +103,17 @@ const renderGraph = (graph: GraphType, setGraph: React.Dispatch<React.SetStateAc
 		</>
 	);
 };
-
+interface GraphComponentContent {
+	graph: GraphType;
+	setGraph: React.Dispatch<React.SetStateAction<GraphType>>;
+}
 //The actual functional compoenet that renders the graph as a whole with buttons
-const GraphComponent = () => {
-	const startNodeRef = useRef(START_NODE_CORDS);
-	const finishNodeRef = useRef(FINISH_NODE_CORDS);
-	const [Graph, SetGraph] = useState(
-		generateGraph(startNodeRef.current, finishNodeRef.current, GRAPH_HEIGHT, GRAPH_WIDTH)
-	);
+const GraphComponent: FC<GraphComponentContent> = ({ graph, setGraph }) => {
+	// const startNodeRef = useRef(START_NODE_CORDS);
+	// const finishNodeRef = useRef(FINISH_NODE_CORDS);
+	// const [Graph, SetGraph] = useState(
+	// 	generateGraph(startNodeRef.current, finishNodeRef.current, GRAPH_HEIGHT, GRAPH_WIDTH)
+	// );
 
 	return (
 		<div
@@ -124,9 +127,8 @@ const GraphComponent = () => {
 			className='graph_meta_container'
 		>
 			<div style={{}} className='graph_container'>
-				{renderGraph(Graph, SetGraph)}
+				{renderGraph(graph, setGraph)}
 			</div>
-			<OptionsBar Graph={Graph} SetGraph={SetGraph} GRAPH_HEIGHT={GRAPH_HEIGHT} GRAPH_WIDTH={GRAPH_WIDTH} />
 		</div>
 	);
 };

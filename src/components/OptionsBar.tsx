@@ -18,6 +18,8 @@ interface OptionsBarContent {
 	SetGraph: React.Dispatch<React.SetStateAction<GraphType>>;
 	GRAPH_HEIGHT: number;
 	GRAPH_WIDTH: number;
+	setGraphHeight: React.Dispatch<React.SetStateAction<number>>;
+	setGraphWidth: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const runAlgorithim = (
@@ -51,10 +53,18 @@ const resetTheGraph = (
 	SetGraph(generateGraph(StartNode.cords, FinishNode.cords, GRAPH_HEIGHT, GRAPH_WIDTH));
 };
 
-const OptionsBar: FC<OptionsBarContent> = ({ Graph, SetGraph, GRAPH_HEIGHT, GRAPH_WIDTH }) => {
+const OptionsBar: FC<OptionsBarContent> = ({
+	Graph,
+	SetGraph,
+	GRAPH_HEIGHT,
+	GRAPH_WIDTH,
+	setGraphHeight,
+	setGraphWidth,
+}) => {
 	const [currentAlgo, setCurrentAlgo] = useState(AlgoTypes.BFS);
 	const [DELAY_TIME, setDelayTime] = useState(60);
 	const [isAlgoRunning, setIsAlgoRunning] = useState(false);
+	const [graphSize, setGraphSize] = useState(20);
 
 	const setAlgoRunningToFalse = () => {
 		setIsAlgoRunning(false);
@@ -62,6 +72,23 @@ const OptionsBar: FC<OptionsBarContent> = ({ Graph, SetGraph, GRAPH_HEIGHT, GRAP
 
 	return (
 		<div className='tool-bar'>
+			<FormControl style={{ width: "180px" }}>
+				<InputLabel>Graph Size</InputLabel>
+				<Select
+					labelId='graph-selector-helper-label'
+					id='graph-selector-helper'
+					value={graphSize}
+					onChange={(e) => {
+						setGraphSize(e.target.value as number);
+						setGraphHeight(e.target.value as number);
+					}}
+				>
+					<MenuItem value={10}>Small</MenuItem>
+					<MenuItem value={20}>Medium</MenuItem>
+					<MenuItem value={30}>Large</MenuItem>
+				</Select>
+				<FormHelperText>The size of the graph</FormHelperText>
+			</FormControl>
 			<FormControl style={{ width: "180px" }}>
 				<InputLabel>Algorithim Type</InputLabel>
 				<Select
