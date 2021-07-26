@@ -81,7 +81,11 @@ const OptionsBar: FC<OptionsBarContent> = ({
 					onChange={(e) => {
 						setGraphSize(e.target.value as number);
 						setGraphHeight(e.target.value as number);
-						setGraphWidth((e.target.value as number) + 10);
+						setGraphWidth(
+							((e.target.value as number) * 1.7777) % 2 === 0
+								? (e.target.value as number) * 1.7777
+								: (e.target.value as number) * 1.7777 + 1
+						);
 					}}
 				>
 					<MenuItem value={11}>Small</MenuItem>
@@ -120,7 +124,7 @@ const OptionsBar: FC<OptionsBarContent> = ({
 						setDelayTime(e.target.value as number);
 					}}
 				>
-					<MenuItem value={100}>Slow</MenuItem>
+					<MenuItem value={300}>Slow</MenuItem>
 					<MenuItem value={60}>Medium</MenuItem>
 					<MenuItem value={20}>Fast</MenuItem>
 				</Select>
