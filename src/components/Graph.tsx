@@ -1,18 +1,7 @@
-//import { v4 as uuidv4 } from "uuid";
 import "../css/Graph.css";
-import { useState, FC } from "react";
+import { FC } from "react";
 import { GraphType, NodeCords, GraphUnitTypes } from "../types";
-//import { breadthFirstSearch } from "../algos/breadthFirstSearch";
-//import { deapthFirstSearch } from "../algos/depthFirstSearch";
-//import { FindNodeType } from "../functions/GraphFunctions";
-import { useRef } from "react";
 import GraphNode from "./GraphNode";
-import OptionsBar from "./OptionsBar";
-
-// const START_NODE_CORDS: NodeCords = [14, 10];
-// const FINISH_NODE_CORDS: NodeCords = [14, 50];
-// const GRAPH_HEIGHT: number = 27;
-// const GRAPH_WIDTH: number = 53;
 
 //Function used to generate the code representation of the graph
 export const generateGraph = (startNode: NodeCords, finishNode: NodeCords, width: number, height: number) => {
@@ -24,21 +13,25 @@ export const generateGraph = (startNode: NodeCords, finishNode: NodeCords, width
 			retGraph[i][j] = generateGraphNode(i, j);
 		}
 	}
+	try {
+		const [startXcord, startYCord] = startNode;
+		if (retGraph[startXcord][startYCord].type === GraphUnitTypes.NODE) {
+			retGraph[startXcord][startYCord].type = GraphUnitTypes.START;
+		} else {
+			throw new Error("The start node coordinate is not a valid node");
+		}
+		//setting the finish node
+		const [finishXcord, finishYCord] = finishNode;
+		if (retGraph[finishXcord][finishYCord].type === GraphUnitTypes.NODE) {
+			retGraph[finishXcord][finishYCord].type = GraphUnitTypes.FINISH;
+		} else {
+			throw new Error("The finish node coordinate is not a valid node");
+		}
+	} catch (e) {
+		retGraph[0][0].type = GraphUnitTypes.START;
+		retGraph[0][2].type = GraphUnitTypes.FINISH;
+	}
 	//setting the start node
-	const [startXcord, startYCord] = startNode;
-	if (retGraph[startXcord][startYCord].type === GraphUnitTypes.NODE) {
-		retGraph[startXcord][startYCord].type = GraphUnitTypes.START;
-	} else {
-		throw new Error("The start node coordinate is not a valid node");
-	}
-	//setting the finish node
-	const [finishXcord, finishYCord] = finishNode;
-	if (retGraph[finishXcord][finishYCord].type === GraphUnitTypes.NODE) {
-		retGraph[finishXcord][finishYCord].type = GraphUnitTypes.FINISH;
-	} else {
-		throw new Error("The finish node coordinate is not a valid node");
-	}
-
 	return retGraph;
 };
 
@@ -109,12 +102,6 @@ interface GraphComponentContent {
 }
 //The actual functional compoenet that renders the graph as a whole with buttons
 const GraphComponent: FC<GraphComponentContent> = ({ graph, setGraph }) => {
-	// const startNodeRef = useRef(START_NODE_CORDS);
-	// const finishNodeRef = useRef(FINISH_NODE_CORDS);
-	// const [Graph, SetGraph] = useState(
-	// 	generateGraph(startNodeRef.current, finishNodeRef.current, GRAPH_HEIGHT, GRAPH_WIDTH)
-	// );
-
 	return (
 		<div
 			style={{

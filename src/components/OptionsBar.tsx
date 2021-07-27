@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { breadthFirstSearch } from "../algos/breadthFirstSearch";
 import { deapthFirstSearch } from "../algos/depthFirstSearch";
-import { GraphType, GraphUnit, GraphUnitTypes, AlgoTypes } from "../types";
+import { GraphType, GraphUnit, GraphUnitTypes, AlgoTypes, NodeCords } from "../types";
 import { FindNodeType, makeEmptySpace } from "../functions/GraphFunctions";
 import { generateGraph } from "../components/Graph";
 //import DropdownSelector from "./DropdownSelector";
@@ -88,9 +88,11 @@ const OptionsBar: FC<OptionsBarContent> = ({
 						);
 					}}
 				>
+					<MenuItem value={3}>Very Small</MenuItem>
 					<MenuItem value={11}>Small</MenuItem>
 					<MenuItem value={21}>Medium</MenuItem>
 					<MenuItem value={27}>Large</MenuItem>
+					<MenuItem value={37}>Extra Large</MenuItem>
 				</Select>
 				<FormHelperText>Hit reset after changing sizes</FormHelperText>
 			</FormControl>
@@ -158,15 +160,18 @@ const OptionsBar: FC<OptionsBarContent> = ({
 			<Button
 				disabled={isAlgoRunning}
 				onClick={() => {
-					const DeleteList = [
-						[12, 20],
-						[14, 20],
-						[16, 20],
-						[18, 20],
-						[20, 20],
-						[22, 20],
-						[10, 10],
-					];
+					//making a list to delete
+					const DeleteList: NodeCords[] = [];
+					Graph.forEach((row, ix) => {
+						row.forEach((node, iy) => {
+							if (Graph[ix][iy].type === GraphUnitTypes.FINISH) {
+							} else if (Graph[ix][iy].type === GraphUnitTypes.START) {
+							} else if (iy % 4 === 0 && ix % 4 === 0) {
+								DeleteList.push([ix, iy]);
+							}
+						});
+					});
+
 					DeleteList.forEach((cord) => makeEmptySpace(Graph, SetGraph, cord[0], cord[1], GRAPH_WIDTH, GRAPH_HEIGHT));
 					//makeEmptySpace(Graph, SetGraph, 20, 24, GRAPH_HEIGHT, GRAPH_WIDTH);
 				}}
