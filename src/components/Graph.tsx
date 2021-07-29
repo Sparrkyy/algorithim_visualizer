@@ -80,7 +80,11 @@ const generateGraphNode = (row: number, col: number) => {
 };
 
 //Generates the react representation from the code representation of the matrix graph
-const renderGraph = (graph: GraphType, setGraph: React.Dispatch<React.SetStateAction<GraphType>>) => {
+const renderGraph = (
+	graph: GraphType,
+	setGraph: React.Dispatch<React.SetStateAction<GraphType>>,
+	nodeDiameter: number
+) => {
 	return (
 		<>
 			{" "}
@@ -88,7 +92,15 @@ const renderGraph = (graph: GraphType, setGraph: React.Dispatch<React.SetStateAc
 				return (
 					<div className='graph-col' key={i}>
 						{row.map((item, j) => {
-							return <GraphNode GraphNode={item} setGraph={setGraph} Graph={graph} key={i + 37 * j} />;
+							return (
+								<GraphNode
+									GraphNode={item}
+									setGraph={setGraph}
+									Graph={graph}
+									key={i + 37 * j}
+									nodeDiameter={nodeDiameter}
+								/>
+							);
 						})}
 					</div>
 				);
@@ -99,12 +111,13 @@ const renderGraph = (graph: GraphType, setGraph: React.Dispatch<React.SetStateAc
 interface GraphComponentContent {
 	graph: GraphType;
 	setGraph: React.Dispatch<React.SetStateAction<GraphType>>;
+	nodeDiameter: React.MutableRefObject<number>;
 }
 
-const GraphComponent: FC<GraphComponentContent> = ({ graph, setGraph }) => {
+const GraphComponent: FC<GraphComponentContent> = ({ graph, setGraph, nodeDiameter }) => {
 	return (
 		<div className='graph_meta_container'>
-			<div className='graph_container'>{renderGraph(graph, setGraph)}</div>
+			<div className='graph_container'>{renderGraph(graph, setGraph, nodeDiameter.current)}</div>
 		</div>
 	);
 };
