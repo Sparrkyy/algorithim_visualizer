@@ -88,7 +88,7 @@ const renderGraph = (graph: GraphType, setGraph: React.Dispatch<React.SetStateAc
 				return (
 					<div className='graph-col' key={i}>
 						{row.map((item, j) => {
-							return <GraphNode GraphNode={item} setGraph={setGraph} Graph={graph} key={i + 10 * j} />;
+							return <GraphNode GraphNode={item} setGraph={setGraph} Graph={graph} key={i + 37 * j} />;
 						})}
 					</div>
 				);
@@ -100,22 +100,11 @@ interface GraphComponentContent {
 	graph: GraphType;
 	setGraph: React.Dispatch<React.SetStateAction<GraphType>>;
 }
-//The actual functional compoenet that renders the graph as a whole with buttons
+
 const GraphComponent: FC<GraphComponentContent> = ({ graph, setGraph }) => {
 	return (
-		<div
-			style={{
-				display: "flex",
-				justifyContent: "center",
-				alignItems: "center",
-				height: "100vh",
-				flexDirection: "column",
-			}}
-			className='graph_meta_container'
-		>
-			<div style={{}} className='graph_container'>
-				{renderGraph(graph, setGraph)}
-			</div>
+		<div className='graph_meta_container'>
+			<div className='graph_container'>{renderGraph(graph, setGraph)}</div>
 		</div>
 	);
 };

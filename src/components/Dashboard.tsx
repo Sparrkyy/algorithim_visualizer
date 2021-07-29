@@ -16,7 +16,8 @@ const Dashboard: FC = () => {
 		generateGraph(startNodeRef.current, finishNodeRef.current, graphHeight, graphWidth)
 	);
 	return (
-		<div style={{ display: "flex", flexDirection: "column", alignItems: "center", height: "100vh" }}>
+		<div className='dashboard_container'>
+			<GraphComponent graph={graph} setGraph={setGraph} />
 			<OptionsBar
 				Graph={graph}
 				SetGraph={setGraph}
@@ -25,7 +26,6 @@ const Dashboard: FC = () => {
 				setGraphHeight={setGraphHeight}
 				setGraphWidth={setGraphWidth}
 			/>
-			<GraphComponent graph={graph} setGraph={setGraph} />
 		</div>
 	);
 };

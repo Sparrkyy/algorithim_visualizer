@@ -7,7 +7,7 @@
 	--black: #444444;
 	--bright-white: #f3f3f3;
 	--node-diameter: 21px;
-	--edges-and-borders: #f0ebf4;
+	--edges-and-borders: var(--purple);
 }
 
 * {
@@ -114,9 +114,6 @@
 	animation: 1s forwards shortest-path-animation;
 }
 
-.graph_container {
-}
-
 .graph-col {
 	display: flex;
 }
@@ -140,4 +137,17 @@
 .node-selection-menu-option:hover {
 	cursor: pointer;
 	background-color: lightgrey;
+}
+
+.graph_meta_container {
+	background-color: var(--white);
+	border: 1px var(--black) solid;
+	min-height: 70vh;
+	background-color: var(--white);
+	padding: 1rem;
+	min-width: 80vw;
+
+	display: grid;
+	place-items: center;
+	border: var(--black) 3px solid;
 }
