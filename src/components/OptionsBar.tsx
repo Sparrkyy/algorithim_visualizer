@@ -87,12 +87,7 @@ const OptionsBar: FC<OptionsBarContent> = ({
 					onChange={(e) => {
 						setGraphSize(e.target.value as number);
 						setGraphHeight(e.target.value as number);
-						setGraphWidth(
-							(e.target.value as number) * 2 + 1
-							// ((e.target.value as number) * 1.7777) % 2 === 0
-							// 	? (e.target.value as number) * 1.7777
-							// 	: (e.target.value as number) * 1.7777 + 1
-						);
+						setGraphWidth((e.target.value as number) * 2 + 1);
 					}}
 				>
 					<MenuItem value={3}>Very Small</MenuItem>
@@ -167,7 +162,6 @@ const OptionsBar: FC<OptionsBarContent> = ({
 			<Button
 				disabled={isAlgoRunning}
 				onClick={() => {
-					//making a list to delete
 					const DeleteList: NodeCords[] = [];
 					Graph.forEach((row, ix) => {
 						row.forEach((node, iy) => {
@@ -180,7 +174,6 @@ const OptionsBar: FC<OptionsBarContent> = ({
 					});
 
 					DeleteList.forEach((cord) => makeEmptySpace(Graph, SetGraph, cord[0], cord[1], GRAPH_WIDTH, GRAPH_HEIGHT));
-					//makeEmptySpace(Graph, SetGraph, 20, 24, GRAPH_HEIGHT, GRAPH_WIDTH);
 				}}
 			>
 				Delete Node

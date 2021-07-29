@@ -19,7 +19,7 @@ const Dashboard: FC = () => {
 	);
 
 	useEffect(() => {
-		const graphWidthPixels = 1000;
+		const graphWidthPixels = 900;
 		nodeDiameter.current = graphWidthPixels / graphWidth;
 	}, [graphWidth]);
 

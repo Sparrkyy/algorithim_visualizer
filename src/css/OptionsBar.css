@@ -1,10 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 .tool-bar {
-  display: flex;
-  align-items: center;
-  padding: 2rem;
-  gap: 10px;
+	display: flex;
+	align-items: center;
+	padding: 1rem;
+	gap: 10px;
+	border: #444444 solid 3px;
+	--white: #f0ebf4;
+	background-color: var(--white);
+	margin-top: 10px;
 }
