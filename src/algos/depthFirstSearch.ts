@@ -40,6 +40,11 @@ export const deapthFirstSearch = (
 		const currentNode = Stack.shift();
 
 		if (!currentNode) throw new Error("The stack was empty when that was already checked");
+
+		if (currentNode[0] === FinishNode.cords[0] && currentNode[1] === FinishNode.cords[1]) {
+			break;
+		}
+
 		timer = TimeoutChangeGraphUnitType(
 			currentNode[0],
 			currentNode[1],
@@ -58,9 +63,9 @@ export const deapthFirstSearch = (
 			Graph[X][Y].queued = true;
 			Graph[X][Y].previous = currentNode;
 		});
-		if (neighbors.filter(([X, Y]) => Graph[X][Y].type === GraphUnitTypes.FINISH).length > 0) {
-			break;
-		}
+		// if (neighbors.filter(([X, Y]) => Graph[X][Y].type === GraphUnitTypes.FINISH).length > 0) {
+		// 	break;
+		// }
 	}
 
 	displayShortestPathUsingPreviousNode(

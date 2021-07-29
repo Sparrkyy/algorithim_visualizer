@@ -26,8 +26,7 @@ export const breadthFirstSearch = (
 	//timer to help with calcuation
 	let timer = 0;
 
-	while (Graph[FinishNode.cords[0]][FinishNode.cords[1]].queued !== true) {
-		//Grabs first node in the list
+	while (queue.length !== 0) {
 		const currentNode = queue.shift();
 		if (currentNode) {
 			const [currentNodeCordX, currentNodeCordY] = currentNode;
@@ -45,9 +44,13 @@ export const breadthFirstSearch = (
 				Graph
 			);
 		}
-
+		//null check for typescript
 		if (!currentNode) {
 			console.log("there was nothing let in the queue");
+			break;
+		}
+		//if finish node was found
+		if (currentNode[0] === FinishNode.cords[0] && currentNode[1] === FinishNode.cords[1]) {
 			break;
 		}
 		//Gets neighbors and sets all visited to true for them to avoid putting them in the queue twice
