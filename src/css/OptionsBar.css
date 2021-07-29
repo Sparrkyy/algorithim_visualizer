@@ -2,6 +2,7 @@
 
 .tool-bar {
 	display: flex;
+	justify-content: space-around;
 	align-items: center;
 	padding: 1rem;
 	gap: 10px;
@@ -9,4 +10,5 @@
 	--white: #f0ebf4;
 	background-color: var(--white);
 	margin-top: 10px;
+	min-width: 80vw;
 }

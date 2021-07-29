@@ -21,6 +21,7 @@ const Dashboard: FC = () => {
 	useEffect(() => {
 		const graphWidthPixels = 900;
 		nodeDiameter.current = graphWidthPixels / graphWidth;
+		setGraph(generateGraph(startNodeRef.current, finishNodeRef.current, graphHeight, graphWidth));
 	}, [graphWidth]);
 
 	return (
