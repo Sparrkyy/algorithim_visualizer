@@ -6,7 +6,8 @@
 	--pink: #e64398;
 	--black: #444444;
 	--bright-white: #f3f3f3;
-	--node-diameter: 24px;
+	--node-diameter: 21px;
+	--edges-and-borders: var(--purple);
 }
 
 * {
@@ -26,7 +27,7 @@
 	height: 100%;
 	border-radius: 50%;
 	background-color: var(--purple);
-	border: 1px gray solid;
+	border: 1px var(--edges-and-borders) solid;
 }
 
 .start-node {
@@ -44,7 +45,7 @@
 }
 
 .left-right-edge {
-	background-color: gray;
+	background-color: var(--edges-and-borders);
 	height: 3px;
 	width: 100%;
 }
@@ -52,7 +53,7 @@
 .up-down-edge {
 	height: 100%;
 
-	background-color: gray;
+	background-color: var(--edges-and-borders);
 	width: 3px;
 }
 
@@ -61,7 +62,7 @@
 	height: 100%;
 	border-radius: 50%;
 
-	animation: visited-node-animation 3s forwards;
+	animation: visited-node-animation 5s forwards;
 }
 
 @keyframes visited-node-animation {
@@ -113,26 +114,40 @@
 	animation: 1s forwards shortest-path-animation;
 }
 
-.graph_container {
-}
-
 .graph-col {
 	display: flex;
 }
 
 .node-selection-menu {
 	position: absolute;
-
+	font-family: sans-serif;
+	color: var(--black);
+	border-radius: 0.2rem;
+	box-shadow: 1px 0.5px 15px grey;
 	background-color: white;
+	padding-top: 0.2rem;
+	padding-bottom: 0.2rem;
 }
 
 .node-selection-menu-option {
 	text-align: center;
-	padding: 0.5rem;
-	border: 1px lightgray solid;
+	padding: 0.5rem 1rem;
 }
 
 .node-selection-menu-option:hover {
 	cursor: pointer;
-	background-color: whitesmoke;
+	background-color: lightgrey;
+}
+
+.graph_meta_container {
+	background-color: var(--white);
+	border: 1px var(--black) solid;
+	min-height: 70vh;
+	background-color: var(--white);
+	padding: 1rem;
+	min-width: 80vw;
+
+	display: grid;
+	place-items: center;
+	border: var(--black) 3px solid;
 }

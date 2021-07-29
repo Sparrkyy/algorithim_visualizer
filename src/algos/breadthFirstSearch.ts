@@ -40,7 +40,9 @@ export const breadthFirstSearch = (
 				SetGraph,
 				GraphUnitTypes.VISITED_NODE,
 				TIMER_BETWEEN_RENDERS,
-				timer
+				timer,
+				true,
+				Graph
 			);
 		}
 

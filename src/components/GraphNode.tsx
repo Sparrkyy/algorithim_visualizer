@@ -72,6 +72,10 @@ const GraphNode: FC<GraphNodeContents> = memo(({ GraphNode, setGraph }) => {
 						>
 							Set Finish Node
 						</div>
+
+						<div className='node-selection-menu-option'>
+							<h4>{JSON.stringify(GraphNode.cords)}</h4>
+						</div>
 					</div>
 				)}
 		</div>

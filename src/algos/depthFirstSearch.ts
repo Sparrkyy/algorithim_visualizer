@@ -46,7 +46,9 @@ export const deapthFirstSearch = (
 			SetGraph,
 			GraphUnitTypes.VISITED_NODE,
 			TIME_TO_DELAY,
-			timer
+			timer,
+			true,
+			Graph
 		);
 		const [Xcord, Ycord] = currentNode;
 		Graph[Xcord][Ycord].visited = true;
