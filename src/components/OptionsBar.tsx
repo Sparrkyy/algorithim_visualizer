@@ -12,6 +12,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
+import { useEffect } from "react";
 
 interface OptionsBarContent {
 	Graph: GraphUnit[][];
@@ -64,7 +65,12 @@ const OptionsBar: FC<OptionsBarContent> = ({
 	const [currentAlgo, setCurrentAlgo] = useState(AlgoTypes.BFS);
 	const [DELAY_TIME, setDelayTime] = useState(60);
 	const [isAlgoRunning, setIsAlgoRunning] = useState(false);
-	const [graphSize, setGraphSize] = useState(27);
+	const [graphSize, setGraphSize] = useState(21);
+
+	useEffect(() => {
+		setGraphHeight(graphSize as number);
+		setGraphWidth((graphSize as number) * 2 + 1);
+	});
 
 	const setAlgoRunningToFalse = () => {
 		setIsAlgoRunning(false);
@@ -82,9 +88,10 @@ const OptionsBar: FC<OptionsBarContent> = ({
 						setGraphSize(e.target.value as number);
 						setGraphHeight(e.target.value as number);
 						setGraphWidth(
-							((e.target.value as number) * 1.7777) % 2 === 0
-								? (e.target.value as number) * 1.7777
-								: (e.target.value as number) * 1.7777 + 1
+							(e.target.value as number) * 2 + 1
+							// ((e.target.value as number) * 1.7777) % 2 === 0
+							// 	? (e.target.value as number) * 1.7777
+							// 	: (e.target.value as number) * 1.7777 + 1
 						);
 					}}
 				>
