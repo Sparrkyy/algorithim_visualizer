@@ -4,6 +4,7 @@ import OptionsBar from "./OptionsBar";
 import GraphComponent, { generateGraph } from "./Graph";
 import { NodeCords } from "../types";
 import { useEffect } from "react";
+import "../css/Dashboard.css";
 
 const START_NODE_CORDS: NodeCords = [0, 0];
 const FINISH_NODE_CORDS: NodeCords = [6, 6];
@@ -22,10 +23,13 @@ const Dashboard: FC = () => {
 		const graphWidthPixels = 900;
 		nodeDiameter.current = graphWidthPixels / graphWidth;
 		setGraph(generateGraph(startNodeRef.current, finishNodeRef.current, graphHeight, graphWidth));
-	}, [graphWidth]);
+	}, [graphWidth, graphHeight]);
 
 	return (
 		<div className='dashboard_container'>
+			<div className='title-container'>
+				<h1>Pathfinding Visualizer</h1>
+			</div>
 			<GraphComponent graph={graph} setGraph={setGraph} nodeDiameter={nodeDiameter} />
 			<OptionsBar
 				Graph={graph}

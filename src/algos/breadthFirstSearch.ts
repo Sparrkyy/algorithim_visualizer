@@ -7,8 +7,6 @@ import {
 	hasNodeNotBeenQueued,
 } from "../functions/GraphFunctions";
 
-//const TIMER_BETWEEN_RENDERS = 30;
-
 export const breadthFirstSearch = (
 	Graph: GraphType,
 	SetGraph: React.Dispatch<React.SetStateAction<GraphType>>,
