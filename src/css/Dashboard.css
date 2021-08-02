@@ -13,4 +13,8 @@
 	width: 80vw;
 	font-family: "Inter";
 	font-size: 1.5rem;
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	color: #1d1d1d;
 }

@@ -28,7 +28,9 @@ const Dashboard: FC = () => {
 	return (
 		<div className='dashboard_container'>
 			<div className='title-container'>
+				<img src='/algorithm-visualizer/apple-touch-icon.png' alt='Website Logo' width={50} height={50} />
 				<h1>Pathfinding Visualizer</h1>
+				<img src='/algorithm-visualizer/apple-touch-icon.png' alt='Website Logo' width={50} height={50} />
 			</div>
 			<GraphComponent graph={graph} setGraph={setGraph} nodeDiameter={nodeDiameter} />
 			<OptionsBar
