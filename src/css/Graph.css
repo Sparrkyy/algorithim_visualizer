@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 :root {
 	--blue: #a1c3d1;
 	--purple: #b39bc8;
@@ -15,8 +17,8 @@
 }
 
 .graph-unit {
-	height: var(--node-diameter);
-	width: var(--node-diameter);
+	/* height: var(--node-diameter);
+	width: var(--node-diameter); */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -78,8 +80,6 @@
 
 	100% {
 		background-color: var(--pink);
-		height: var(--node-diameter);
-		width: var(--node-diameter);
 	}
 }
 
@@ -101,8 +101,6 @@
 	}
 	100% {
 		background-color: purple;
-		height: var(--node-diameter);
-		width: var(--node-diameter);
 	}
 }
 

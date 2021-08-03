@@ -67,11 +67,11 @@ export const ChangeGraphUnitType = (
 ) => {
 	SetGraph((prevGraph) => {
 		const dup = [...prevGraph];
+
 		if (dup[Xcord][Ycord].type !== GraphUnitTypes.START || dup[Xcord][Ycord].type !== GraphUnitTypes.FINISH) {
 			dup[Xcord][Ycord].type = TypeToChange;
-		} else {
-			console.log(dup[Xcord][Ycord].type);
 		}
+		//for deleting a node and all its edges
 		if (deleteEdges) {
 			if (Xcord + 1 < Graph.length) {
 				dup[Xcord + 1][Ycord].type = GraphUnitTypes.EMPTY_SPACE;
@@ -86,7 +86,7 @@ export const ChangeGraphUnitType = (
 				dup[Xcord][Ycord - 1].type = GraphUnitTypes.EMPTY_SPACE;
 			}
 		}
-
+		//for replacing the edges in the shortest path's path
 		const prevNode = dup[Xcord][Ycord].previous;
 		if (replacePreviousEdge && prevNode) {
 			if (Xcord === prevNode[0]) {
@@ -94,12 +94,8 @@ export const ChangeGraphUnitType = (
 			} else {
 				dup[(Xcord + prevNode[0]) / 2][(Ycord + prevNode[1]) / 2].type = GraphUnitTypes.UP_DOWN_EDGE;
 			}
-			//dup[(Xcord + prevNode[0])/2][(Ycord + prevNode[1])/2].type
 		}
-		// const prevCords = dup[Xcord][Ycord].previous;
-		// if (DeletePreviousEdge && prevCords) {
-		// 	dup[(Xcord + prevCords[0]) / 2][(Ycord + prevCords[1]) / 2].type = GraphUnitTypes.EMPTY_SPACE;
-		// }
+
 		return dup;
 	});
 };
@@ -140,6 +136,25 @@ export const FindNodeType = (Graph: GraphType, TypeToFind: GraphUnitTypes) => {
 	return NodeToFind;
 };
 
+const traceBackShortestPath = (Graph: GraphType, FinishNode: GraphUnit, StartNode: GraphUnit) => {
+	const shortestPath: NodeCords[] = [];
+	let node: NodeCords | undefined = Graph[FinishNode.cords[0]][FinishNode.cords[1]].cords;
+	shortestPath.push(node);
+
+	while (node && node !== StartNode.cords) {
+		shortestPath.push(node);
+		const x: number = node[0];
+		const y: number = node[1];
+		node = Graph[x][y].previous;
+	}
+
+	if (node) {
+		shortestPath.push(node);
+	}
+
+	return shortestPath;
+};
+
 //Displays the shortest path at the end of depth first and bredth first search through essentially tracing back previous nodes
 export const displayShortestPathUsingPreviousNode = (
 	timer: number,
@@ -150,23 +165,7 @@ export const displayShortestPathUsingPreviousNode = (
 	StartNode: GraphUnit,
 	endingProgramCallback: () => void
 ) => {
-	//displaying the shortest path by following the linked list back
-
-	//intializing the array of node for shortest path
-	const shortestPath: NodeCords[] = [];
-	const finishNode = Graph[FinishNode.cords[0]][FinishNode.cords[1]];
-	shortestPath.push(finishNode.cords);
-	//typescript check
-	if (!finishNode.previous) {
-		throw new Error("The FINISH NODE did not have a previous node");
-	}
-	let prevNode: NodeCords | undefined = finishNode.previous;
-	//Follows the link list back like a linked list
-	while (prevNode !== StartNode.cords && prevNode) {
-		shortestPath.push(prevNode);
-		prevNode = Graph[prevNode[0]][prevNode[1]].previous;
-	}
-	//Going through the shortest path and calling the render change function for each
+	const shortestPath: NodeCords[] = traceBackShortestPath(Graph, FinishNode, StartNode);
 	shortestPath.forEach((cordInShortestPath) => {
 		const [Xcord, Ycord] = cordInShortestPath;
 		timer = TimeoutChangeGraphUnitType(
@@ -181,31 +180,6 @@ export const displayShortestPathUsingPreviousNode = (
 			true
 		);
 	});
-
-	//recoloring the START node
-	timer = TimeoutChangeGraphUnitType(
-		StartNode.cords[0],
-		StartNode.cords[1],
-		SetGraph,
-		GraphUnitTypes.START,
-		TIMER_BETWEEN_RENDERS,
-		timer,
-		false,
-		Graph,
-		true
-	);
-	//recoloring the FINISH node
-	timer = TimeoutChangeGraphUnitType(
-		FinishNode.cords[0],
-		FinishNode.cords[1],
-		SetGraph,
-		GraphUnitTypes.FINISH,
-		TIMER_BETWEEN_RENDERS,
-		timer,
-		false,
-		Graph,
-		true
-	);
 
 	setTimeout(() => {
 		endingProgramCallback();

@@ -1,10 +1,9 @@
 import React, { FC, useState } from "react";
 import { breadthFirstSearch } from "../algos/breadthFirstSearch";
 import { deapthFirstSearch } from "../algos/depthFirstSearch";
-import { GraphType, GraphUnit, GraphUnitTypes, AlgoTypes, NodeCords } from "../types";
-import { FindNodeType, makeEmptySpace } from "../functions/GraphFunctions";
+import { GraphType, GraphUnit, GraphUnitTypes, AlgoTypes, graphTypes } from "../types";
+import { FindNodeType } from "../functions/GraphFunctions";
 import { generateGraph } from "../components/Graph";
-//import DropdownSelector from "./DropdownSelector";
 import "../css/OptionsBar.css";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -21,6 +20,8 @@ interface OptionsBarContent {
 	GRAPH_WIDTH: number;
 	setGraphHeight: React.Dispatch<React.SetStateAction<number>>;
 	setGraphWidth: React.Dispatch<React.SetStateAction<number>>;
+	setGraphType: React.Dispatch<React.SetStateAction<graphTypes>>;
+	graphType: graphTypes;
 }
 
 const runAlgorithim = (
@@ -47,11 +48,14 @@ const resetTheGraph = (
 	Graph: GraphUnit[][],
 	SetGraph: React.Dispatch<React.SetStateAction<GraphType>>,
 	GRAPH_HEIGHT: number,
-	GRAPH_WIDTH: number
+	GRAPH_WIDTH: number,
+	setGraphWidth: React.Dispatch<React.SetStateAction<number>>
 ) => {
 	const StartNode = FindNodeType(Graph, GraphUnitTypes.START);
 	const FinishNode = FindNodeType(Graph, GraphUnitTypes.FINISH);
 	SetGraph(generateGraph(StartNode.cords, FinishNode.cords, GRAPH_HEIGHT, GRAPH_WIDTH));
+	const dup = GRAPH_WIDTH;
+	setGraphWidth(dup);
 };
 
 const OptionsBar: FC<OptionsBarContent> = ({
@@ -61,6 +65,8 @@ const OptionsBar: FC<OptionsBarContent> = ({
 	GRAPH_WIDTH,
 	setGraphHeight,
 	setGraphWidth,
+	setGraphType,
+	graphType,
 }) => {
 	const [currentAlgo, setCurrentAlgo] = useState(AlgoTypes.BFS);
 	const [DELAY_TIME, setDelayTime] = useState(60);
@@ -87,12 +93,7 @@ const OptionsBar: FC<OptionsBarContent> = ({
 					onChange={(e) => {
 						setGraphSize(e.target.value as number);
 						setGraphHeight(e.target.value as number);
-						setGraphWidth(
-							(e.target.value as number) * 2 + 1
-							// ((e.target.value as number) * 1.7777) % 2 === 0
-							// 	? (e.target.value as number) * 1.7777
-							// 	: (e.target.value as number) * 1.7777 + 1
-						);
+						setGraphWidth((e.target.value as number) * 2 + 1);
 					}}
 				>
 					<MenuItem value={3}>Very Small</MenuItem>
@@ -100,8 +101,9 @@ const OptionsBar: FC<OptionsBarContent> = ({
 					<MenuItem value={21}>Medium</MenuItem>
 					<MenuItem value={27}>Large</MenuItem>
 					<MenuItem value={37}>Extra Large</MenuItem>
+					<MenuItem value={57}>Extra Extra Large</MenuItem>
 				</Select>
-				<FormHelperText>Hit reset after changing sizes</FormHelperText>
+				<FormHelperText>The amount of nodes</FormHelperText>
 			</FormControl>
 			<FormControl style={{ width: "180px" }}>
 				<InputLabel>Algorithim Type</InputLabel>
@@ -139,6 +141,22 @@ const OptionsBar: FC<OptionsBarContent> = ({
 				</Select>
 				<FormHelperText>The speed it runs</FormHelperText>
 			</FormControl>
+			<FormControl style={{ width: "180px" }}>
+				<InputLabel>Graph Type</InputLabel>
+				<Select
+					labelId='graph-selector-helper-label'
+					id='graph-selector-helper'
+					value={graphType}
+					onChange={(e) => {
+						setGraphType(e.target.value as graphTypes);
+					}}
+				>
+					{Object.entries(graphTypes).map((item) => {
+						return <MenuItem value={item[1]}>{item[1]}</MenuItem>;
+					})}
+				</Select>
+				<FormHelperText>The amount of nodes</FormHelperText>
+			</FormControl>
 			<Button
 				variant='contained'
 				color='primary'
@@ -158,32 +176,11 @@ const OptionsBar: FC<OptionsBarContent> = ({
 				disabled={isAlgoRunning}
 				onClick={() => {
 					if (!isAlgoRunning) {
-						resetTheGraph(Graph, SetGraph, GRAPH_HEIGHT, GRAPH_WIDTH);
+						resetTheGraph(Graph, SetGraph, GRAPH_HEIGHT, GRAPH_WIDTH, setGraphWidth);
 					}
 				}}
 			>
 				Reset
-			</Button>
-			<Button
-				disabled={isAlgoRunning}
-				onClick={() => {
-					//making a list to delete
-					const DeleteList: NodeCords[] = [];
-					Graph.forEach((row, ix) => {
-						row.forEach((node, iy) => {
-							if (Graph[ix][iy].type === GraphUnitTypes.FINISH) {
-							} else if (Graph[ix][iy].type === GraphUnitTypes.START) {
-							} else if (iy % 4 === 0 && ix % 4 === 0) {
-								DeleteList.push([ix, iy]);
-							}
-						});
-					});
-
-					DeleteList.forEach((cord) => makeEmptySpace(Graph, SetGraph, cord[0], cord[1], GRAPH_WIDTH, GRAPH_HEIGHT));
-					//makeEmptySpace(Graph, SetGraph, 20, 24, GRAPH_HEIGHT, GRAPH_WIDTH);
-				}}
-			>
-				Delete Node
 			</Button>
 		</div>
 	);
