@@ -58,15 +58,37 @@ const Dashboard: FC = () => {
 					return dup;
 				});
 				break;
+			case graphTypes.HORIZONTAL_DIVIDE:
+				setGraph((prev) => {
+					const dup = [...prev];
+					const height = dup[0].length;
+					const midWidth = Math.floor(dup.length / 2);
+					for (let i = 2; i < height - 2; i = i + 2) {
+						dup[midWidth][i].type = GraphUnitTypes.EMPTY_SPACE;
+						if (midWidth + 1 < dup.length) {
+							dup[midWidth + 1][i].type = GraphUnitTypes.EMPTY_SPACE;
+						}
+						if (midWidth - 1 > 0) {
+							dup[midWidth - 1][i].type = GraphUnitTypes.EMPTY_SPACE;
+						}
+						if (i + 1 < dup[0].length) {
+							dup[midWidth][i + 1].type = GraphUnitTypes.EMPTY_SPACE;
+						}
+						if (i - 1 > 0) {
+							dup[midWidth][i - 1].type = GraphUnitTypes.EMPTY_SPACE;
+						}
+					}
+					return dup;
+				});
 		}
 	}, [graphType, graphHeight, graphWidth]);
 
 	return (
 		<div className='dashboard_container'>
 			<div className='title-container'>
-				<img src='/algorithm-visualizer/apple-touch-icon.png' alt='Website Logo' width={50} height={50} />
+				<img src='/apple-touch-icon.png' alt='Website Logo' width={50} height={50} />
 				<h1>Pathfinding Visualizer</h1>
-				<img src='/algorithm-visualizer/apple-touch-icon.png' alt='Website Logo' width={50} height={50} />
+				<img src='/apple-touch-icon.png' alt='Website Logo' width={50} height={50} />
 			</div>
 			<GraphComponent graph={graph} setGraph={setGraph} nodeDiameter={nodeDiameter} />
 			<OptionsBar

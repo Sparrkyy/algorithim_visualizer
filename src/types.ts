@@ -3,6 +3,7 @@ export type NodeCords = [row: number, col: number];
 export enum graphTypes {
 	NORMAL = "Normal",
 	HOLES = "Holes",
+	HORIZONTAL_DIVIDE = "Horizontal Divide",
 }
 
 export enum GraphUnitTypes {

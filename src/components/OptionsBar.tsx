@@ -96,7 +96,7 @@ const OptionsBar: FC<OptionsBarContent> = ({
 						setGraphWidth((e.target.value as number) * 2 + 1);
 					}}
 				>
-					<MenuItem value={3}>Very Small</MenuItem>
+					<MenuItem value={5}>Very Small</MenuItem>
 					<MenuItem value={11}>Small</MenuItem>
 					<MenuItem value={21}>Medium</MenuItem>
 					<MenuItem value={27}>Large</MenuItem>
@@ -177,6 +177,7 @@ const OptionsBar: FC<OptionsBarContent> = ({
 				onClick={() => {
 					if (!isAlgoRunning) {
 						resetTheGraph(Graph, SetGraph, GRAPH_HEIGHT, GRAPH_WIDTH, setGraphWidth);
+						setGraphType(graphTypes.NORMAL);
 					}
 				}}
 			>
